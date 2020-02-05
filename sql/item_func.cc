@@ -337,7 +337,7 @@ Item_func::fix_fields(THD *thd, Item **ref)
     MIPS, it takes about 22kB to make one recursive
     call to Item_func::fix_fields())
   */
-  if (check_stack_overrun(thd, STACK_MIN_SIZE * 2))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE * 2 + STACK_BUFF_ALLOC))
     return TRUE;				// Fatal error if flag is set!
   if (arg_count)
   {						// Print purify happy
@@ -3244,7 +3244,7 @@ udf_handler::fix_fields(THD *thd, Item_func_or_sum *func,
 {
   DBUG_ENTER("Item_udf_func::fix_fields");
 
-  if (check_stack_overrun(thd, STACK_MIN_SIZE))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE + STACK_BUFF_ALLOC))
     DBUG_RETURN(TRUE);				// Fatal error flag is set!
 
   udf_func *tmp_udf=find_udf(u_d->name.str,u_d->name.length,1);

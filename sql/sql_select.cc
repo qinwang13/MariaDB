@@ -4696,7 +4696,7 @@ static ha_rows get_quick_record_count(THD *thd, SQL_SELECT *select,
 {
   int error;
   DBUG_ENTER("get_quick_record_count");
-  if (unlikely(check_stack_overrun(thd, STACK_MIN_SIZE)))
+  if (unlikely(check_stack_overrun(thd, STACK_MIN_SIZE + STACK_BUFF_ALLOC)))
     DBUG_RETURN(0);                           // Fatal error flag is set
   if (select)
   {

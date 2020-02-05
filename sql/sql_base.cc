@@ -8226,7 +8226,7 @@ void wrap_ident(THD *thd, Item **conds)
 
 bool setup_on_expr(THD *thd, TABLE_LIST *table, bool is_update)
 {
-  if (check_stack_overrun(thd, STACK_MIN_SIZE))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE + STACK_BUFF_ALLOC))
     return TRUE;				// Fatal error flag is set!
   for(; table; table= table->next_local)
   {

@@ -2703,7 +2703,8 @@ int SQL_SELECT::test_quick_select(THD *thd, key_map keys_to_use,
     PARAM param;
     bool force_group_by = false;
 
-    if (check_stack_overrun(thd, 2*STACK_MIN_SIZE + sizeof(PARAM)))
+    if (check_stack_overrun(thd, 2*STACK_MIN_SIZE + sizeof(PARAM) +
+                            STACK_BUFF_ALLOC))
       DBUG_RETURN(0);                           // Fatal error flag is set
 
     /* set up parameter that is passed to all functions */
