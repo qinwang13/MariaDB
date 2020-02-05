@@ -81,6 +81,28 @@ FUNCTION (MYSQL_ADD_EXECUTABLE)
     ENDIF()
     MYSQL_INSTALL_TARGETS(${target} DESTINATION ${ARG_DESTINATION} COMPONENT ${COMP})
   ENDIF()
+  
+  # set name of binary
+  message(STATUS "************************** NAME OF BINARY: ${target} ****************************")
+  list(FIND MARIADB_SYMLINK_FROMS ${target} _index)
+  message(${_index})
+  
+  if (${_index} GREATER -1)
+    list(GET MARIADB_SYMLINK_TOS ${_index} mariadbname)
+  endif()
+  
+  IF(NOT ${mariadbname} STREQUAL "")
+    message(${mariadbname})
+    SET_TARGET_PROPERTIES(${target} PROPERTIES OUTPUT_NAME ${mariadbname})
+  ENDIF()
+  
+  IF(${target} STREQUAL "mysql")
+    message(STATUS "************************** EQUALS1 *************************************")
+    SET_TARGET_PROPERTIES(${target} PROPERTIES OUTPUT_NAME "mariadb")
+  ELSEIF(${target} STREQUAL "mysqld")
+    message(STATUS "************************** EQUALS2 *************************************")
+    SET_TARGET_PROPERTIES(${target} PROPERTIES OUTPUT_NAME "mariadbd")
+  ENDIF()
 
   # create mariadb named symlink
   CREATE_MARIADB_SYMLINK(${target} ${ARG_DESTINATION} ${COMP})
