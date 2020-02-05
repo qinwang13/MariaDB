@@ -1610,7 +1610,7 @@ xa end 'test1';
 connection $con_aux1;
 let $wait_condition=
   select count(*) = 1 from information_schema.processlist
-  where state = "Waiting for commit lock" and
+  where state = "Waiting for backup lock" and
         info = "xa prepare 'test1'";
 --source include/wait_condition.inc
 unlock tables;
@@ -1630,7 +1630,7 @@ connection $con_aux1;
 --echo # Wait until XA ROLLBACK is blocked.
 let $wait_condition=
   select count(*) = 1 from information_schema.processlist
-  where state = "Waiting for commit lock" and
+  where state = "Waiting for backup lock" and
         info = "xa rollback 'test1'";
 --source include/wait_condition.inc
 unlock tables;
@@ -1651,7 +1651,7 @@ connection $con_aux1;
 --echo # Wait until XA PREPARE is blocked.
 let $wait_condition=
   select count(*) = 1 from information_schema.processlist
-  where state = "Waiting for commit lock" and
+  where state = "Waiting for backup lock" and
         info = "xa prepare 'test1'";
 --source include/wait_condition.inc
 unlock tables;
@@ -1711,7 +1711,7 @@ connection $con_aux1;
 --echo # Wait until XA ROLLBACK is blocked.
 let $wait_condition=
   select count(*) = 1 from information_schema.processlist
-  where state = "Waiting for commit lock" and
+  where state = "Waiting for backup lock" and
         info = "xa rollback 'test1'";
 --source include/wait_condition.inc
 unlock tables;
@@ -1727,7 +1727,7 @@ connection $con_aux1;
 --echo # Wait until XA COMMIT is blocked.
 let $wait_condition=
   select count(*) = 1 from information_schema.processlist
-  where state = "Waiting for commit lock" and
+  where state = "Waiting for backup lock" and
         info = "xa commit 'test2'";
 --source include/wait_condition.inc
 unlock tables;
