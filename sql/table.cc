@@ -9169,7 +9169,7 @@ bool TABLE_LIST::change_refs_to_fields()
 
 void TABLE_LIST::set_lock_type(THD *thd, enum thr_lock_type lock)
 {
-  if (check_stack_overrun(thd, STACK_MIN_SIZE, (uchar *)&lock))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE))
     return;
   /* we call it only when table is opened and it is "leaf" table*/
   DBUG_ASSERT(table);

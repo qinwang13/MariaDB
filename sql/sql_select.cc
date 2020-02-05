@@ -4696,8 +4696,7 @@ static ha_rows get_quick_record_count(THD *thd, SQL_SELECT *select,
 {
   int error;
   DBUG_ENTER("get_quick_record_count");
-  uchar buff[STACK_BUFF_ALLOC];
-  if (unlikely(check_stack_overrun(thd, STACK_MIN_SIZE, buff)))
+  if (unlikely(check_stack_overrun(thd, STACK_MIN_SIZE)))
     DBUG_RETURN(0);                           // Fatal error flag is set
   if (select)
   {
@@ -14960,7 +14959,7 @@ COND *Item_cond_and::build_equal_items(THD *thd,
   COND_EQUAL cond_equal;
   cond_equal.upper_levels= inherited;
 
-  if (check_stack_overrun(thd, STACK_MIN_SIZE, NULL))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE))
     return this;                          // Fatal error flag is set!
 
   List<Item> eq_list;

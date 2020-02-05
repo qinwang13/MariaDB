@@ -4814,7 +4814,6 @@ Item_cond::fix_fields(THD *thd, Item **ref)
   DBUG_ASSERT(fixed == 0);
   List_iterator<Item> li(list);
   Item *item;
-  uchar buff[sizeof(char*)];			// Max local vars in function
   bool is_and_cond= functype() == Item_func::COND_AND_FUNC;
   not_null_tables_cache= 0;
   used_tables_and_const_cache_init();
@@ -4825,7 +4824,7 @@ Item_cond::fix_fields(THD *thd, Item **ref)
   */
   and_tables_cache= ~(table_map) 0;
 
-  if (check_stack_overrun(thd, STACK_MIN_SIZE, buff))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE))
     return TRUE;				// Fatal error flag is set!
   /*
     The following optimization reduces the depth of an AND-OR tree.

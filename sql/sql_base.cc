@@ -1772,7 +1772,7 @@ bool open_table(THD *thd, TABLE_LIST *table_list, Open_table_context *ot_ctx)
   DBUG_ASSERT(!table_list->table);
 
   /* an open table operation needs a lot of the stack space */
-  if (check_stack_overrun(thd, STACK_MIN_SIZE_FOR_OPEN, (uchar *)&alias))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE_FOR_OPEN))
     DBUG_RETURN(TRUE);
 
   if (!(flags & MYSQL_OPEN_IGNORE_KILLED) && thd->killed)
@@ -8226,8 +8226,7 @@ void wrap_ident(THD *thd, Item **conds)
 
 bool setup_on_expr(THD *thd, TABLE_LIST *table, bool is_update)
 {
-  uchar buff[STACK_BUFF_ALLOC];			// Max argument in function
-  if (check_stack_overrun(thd, STACK_MIN_SIZE, buff))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE))
     return TRUE;				// Fatal error flag is set!
   for(; table; table= table->next_local)
   {

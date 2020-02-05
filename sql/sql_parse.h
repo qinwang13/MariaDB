@@ -121,7 +121,7 @@ bool push_new_name_resolution_context(THD *thd,
 void init_update_queries(void);
 Item *normalize_cond(THD *thd, Item *cond);
 Item *negate_expression(THD *thd, Item *expr);
-bool check_stack_overrun(THD *thd, long margin, uchar *dummy);
+bool check_stack_overrun(THD *thd, long margin);
 
 /* Variables */
 

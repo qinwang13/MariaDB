@@ -3229,10 +3229,9 @@ sizeof(load_default_groups)/sizeof(load_default_groups[0]);
 extern "C" int
 check_enough_stack_size_slow()
 {
-  uchar stack_top;
   THD *my_thd= current_thd;
   if (my_thd != NULL)
-    return check_stack_overrun(my_thd, STACK_MIN_SIZE * 2, &stack_top);
+    return check_stack_overrun(my_thd, STACK_MIN_SIZE * 2);
   return 0;
 }
 

@@ -2695,7 +2695,6 @@ int SQL_SELECT::test_quick_select(THD *thd, key_map keys_to_use,
   keys_to_use.intersect(head->keys_in_use_for_query);
   if (!keys_to_use.is_clear_all())
   {
-    uchar buff[STACK_BUFF_ALLOC];
     MEM_ROOT alloc;
     SEL_TREE *tree= NULL;
     SEL_TREE *notnull_cond_tree= NULL;
@@ -2704,7 +2703,7 @@ int SQL_SELECT::test_quick_select(THD *thd, key_map keys_to_use,
     PARAM param;
     bool force_group_by = false;
 
-    if (check_stack_overrun(thd, 2*STACK_MIN_SIZE + sizeof(PARAM), buff))
+    if (check_stack_overrun(thd, 2*STACK_MIN_SIZE + sizeof(PARAM)))
       DBUG_RETURN(0);                           // Fatal error flag is set
 
     /* set up parameter that is passed to all functions */
@@ -4259,7 +4258,7 @@ int find_used_partitions(PART_PRUNE_PARAM *ppar, SEL_ARG *key_tree)
   bool did_set_ignore_part_fields= FALSE;
   RANGE_OPT_PARAM *range_par= &(ppar->range_param);
 
-  if (check_stack_overrun(range_par->thd, 3*STACK_MIN_SIZE, NULL))
+  if (check_stack_overrun(range_par->thd, 3*STACK_MIN_SIZE))
     return -1;
 
   if (key_tree->left != &null_element)

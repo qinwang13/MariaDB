@@ -271,7 +271,7 @@ bool Item_subselect::fix_fields(THD *thd_param, Item **ref)
   eliminated= FALSE;
   parent_select= thd_param->lex->current_select;
 
-  if (check_stack_overrun(thd, STACK_MIN_SIZE, (uchar*)&res))
+  if (check_stack_overrun(thd, STACK_MIN_SIZE))
     return TRUE;
   
   for (SELECT_LEX *sl= unit->first_select(); sl; sl= sl->next_select())

@@ -1191,7 +1191,7 @@ int DsMrr_impl::setup_two_handlers()
       ::clone() takes up a lot of stack, especially on 64 bit platforms.
       The constant 5 is an empiric result.
     */
-    if (check_stack_overrun(thd, 5*STACK_MIN_SIZE, (uchar*) &new_h2))
+    if (check_stack_overrun(thd, 5*STACK_MIN_SIZE))
       DBUG_RETURN(1);
 
     /* Create a separate handler object to do rnd_pos() calls. */
